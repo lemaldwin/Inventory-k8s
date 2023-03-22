@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-app-deployment
+  namespace: argocd
+  labels:
+    app: inventory-app
+    version: 1.0.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inventory-app
+  template:
+    metadata:
+      labels:
+        app: inventory-app
+    spec:
+      containers:
+        - name: inventory-app
+          image: lemuelaldwin/myapps:v1.0.0
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: regcred
